@@ -14,14 +14,15 @@ typedef Pasien infotype_Pasien;
 typedef struct elm_Pasien *adr_Pasien;
 
 struct elm_Pasien {
-    infotype_Pasien info;
-    adr_Pasien next;
-    adr_Pasien prev;
+    infotype_Pasien infoP;
+    adr_Pasien nextP;
+    adr_Pasien prevP;
 };
 
-struct list_Pasien{
-    adr_Pasien first;
-    adr_Pasien last;
+struct list_Pasien
+{
+    adr_Pasien firstP;
+    adr_Pasien lastP;
 };
 
 void createListPasien(list_Pasien &L);
