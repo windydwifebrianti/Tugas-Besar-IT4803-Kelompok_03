@@ -1,7 +1,6 @@
 #ifndef DOKTER_H_INCLUDED
 #define DOKTER_H_INCLUDED
 
-#include "Relation.h"
 #include <iostream>
 using namespace std;
 
@@ -12,10 +11,11 @@ struct Dokter {
     string ID_Dokter;
 };
 
+typedef Dokter infotype_Dokter;
 typedef struct elm_Dokter *adr_Dokter;
 
 struct elm_Dokter {
-    Dokter info;
+    infotype_Dokter info;
     adr_Dokter next;
 };
 
@@ -24,20 +24,17 @@ struct list_Dokter {
 };
 
 void createListDokter(list_Dokter &L);
-adr_Dokter newDokter(Dokter data);
+adr_Dokter newDokter(infotype_Dokter x);
 
 void insert_first_Dokter(list_Dokter &L, adr_Dokter P);
 void insert_last_Dokter(list_Dokter &L, adr_Dokter P);
-void insert_after_Dokter(list_Dokter &L, adr_Dokter P, adr_Dokter Prec);
+void insert_after_Dokter(list_Dokter &L, adr_Dokter Prec, adr_Dokter P);
 
-void delete_first_Dokter(list_Dokter &DL, list_Relasi &RL, string idDokter);
-void delete_last_Dokter(list_Dokter &DL, list_Relasi &RL, string idDokter);
-void delete_after_Dokter(list_Dokter &DL, list_Relasi &RL, string idDokter);
+void delete_first_Dokter(list_Dokter &L, adr_Dokter &P);
+void delete_last_Dokter(list_Dokter &L, adr_Dokter &P);
+void delete_after_Dokter(list_Dokter &L, adr_Dokter Prec, adr_Dokter &P);
 
-adr_Dokter findDokter(list_Dokter &L, string idDokter);
-void showAllDokter(list_Dokter &L);
-
-void deleteRelasiByDokter(list_Relasi &relasiList, string idDokter);
+adr_Dokter findDokter(list_Dokter L, string idDokter, string spesialis);
+void showAllDokter(list_Dokter L);
 
 #endif // DOKTER_H_INCLUDED
-
