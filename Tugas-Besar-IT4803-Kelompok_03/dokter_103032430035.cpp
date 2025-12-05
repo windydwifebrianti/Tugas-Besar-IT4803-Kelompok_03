@@ -1,4 +1,4 @@
-#include "dokter_103032430035.h"
+#include "Dokter.h"
 
 adr_Dokter newDokter(infotype_Dokter x) {
 	adr_Dokter P;
@@ -48,3 +48,4 @@ void delete_after_Dokter(list_Dokter &L, adr_Dokter Prec, adr_Dokter &P){
 		Prec -> next = P -> next;
 		P -> next = nullptr;
 }
+
