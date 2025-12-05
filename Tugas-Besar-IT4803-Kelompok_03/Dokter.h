@@ -15,12 +15,12 @@ typedef Dokter infotype_Dokter;
 typedef struct elm_Dokter *adr_Dokter;
 
 struct elm_Dokter {
-    infotype_Dokter info;
-    adr_Dokter next;
+    infotype_Dokter infoD;
+    adr_Dokter nextD;
 };
 
 struct list_Dokter {
-    adr_Dokter first;
+    adr_Dokter firstD;
 };
 
 void createListDokter(list_Dokter &L);
