@@ -5,7 +5,10 @@
 using namespace std;
 
 void menuAdmin();
-void menuDokter();
-void menuPasien();
+void menuParent();
+void menuChild();
+void menuRelasi();
+
 void menuUser();
 #endif // MAIN_H_INCLUDED
+
