@@ -157,7 +157,7 @@ void ShowRelasiPasien_to_Dokter(list_Relasi L){
     }
 }
 
-adr_Relasi findElmRelasiByChild(list_Relasi L, adr_Pasien Pasien){
+adr_Relasi findElmRelasiByPasien(list_Relasi L, adr_Pasien Pasien){
     /*
     I.S : List relasi L terdefinisi.
     F.S : Mengembalikan address elemen relasi yang memiliki pasien tertentu atau NIL jika tidak ditemukan.
@@ -173,7 +173,7 @@ adr_Relasi findElmRelasiByChild(list_Relasi L, adr_Pasien Pasien){
     return nullptr;
 }
 
-adr_Relasi findElmRelasiByChild(list_Relasi L, adr_Dokter Dokter){
+adr_Relasi findElmRelasiByDokter(list_Relasi L, adr_Dokter Dokter){
     /*
     I.S : List relasi L terdefinisi.
     F.S : Mengembalikan address elemen relasi yang memiliki dokter tertentu atau NIL jika tidak ditemukan.
@@ -306,3 +306,4 @@ int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList){
     }
     return count;
 }
+
