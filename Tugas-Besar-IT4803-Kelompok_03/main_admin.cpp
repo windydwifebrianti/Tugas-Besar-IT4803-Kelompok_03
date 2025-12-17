@@ -203,99 +203,109 @@ void menuChild(){
 
 void menuRelasi(){
     int option = -99;
-    while (option != 0) {
+    string idDokter, spesialis;
+    string idPasien, keluhan;
+
+    adr_Dokter d;
+    adr_Pasien p;
+    adr_Relasi r;
+
+    while(option != 0){
         system("cls");
-        cout << "========== Menu Relasi ==========\n";
-        cout << "|| 1. Tambah Relasi            ||\n";
-        cout << "|| 2. Hapus Relasi             ||\n";
-        cout << "|| 3. Show Pasien dari Dokter  ||\n";
-        cout << "|| 4. Show Dokter dari Pasien  ||\n";
-        cout << "|| 5. Show Semua Relasi        ||\n";
-        cout << "|| 6. Jumlah Pasien per Dokter ||\n";
-        cout << "|| 7. Dokter tanpa Pasien      ||\n";
-        cout << "|| 8. Pasien tanpa Dokter      ||\n";
-        cout << "|| 0. Back                     ||\n";
-        cout << "=================================\n";
+        cout << "========= Menu Relasi =========\n";
+        cout << "|| 1. Tambah Relasi          ||\n";
+        cout << "|| 2. Hapus Relasi           ||\n";
+        cout << "|| 3. Edit Pasien dari Dokter||\n";
+        cout << "|| 4. Edit Dokter dari Pasien||\n";
+        cout << "|| 0. Back                   ||\n";
+        cout << "===============================\n";
         cout << "Choose your option : ";
         cin >> option;
 
-        string idD, sp, idP, keluhan;
-        adr_Dokter D;
-        adr_Pasien P;
-        adr_Relasi R;
-
         switch(option){
-            case 1: { // tambah relasi
-                cout << "ID Dokter   : "; cin >> idD;
-                cout << "Spesialis   : "; cin >> sp;
-                cout << "ID Pasien   : "; cin >> idP;
-                cout << "Keluhan     : "; cin >> keluhan;
 
-                D = findDokter(LD, idD, sp);
-                P = findPasien(LP, idP, keluhan);
+        // ===== INSERT RELASI =====
+        case 1:
+            cout << "ID Dokter   : "; cin >> idDokter;
+            cout << "Spesialis   : "; cin >> spesialis;
+            cout << "ID Pasien   : "; cin >> idPasien;
+            cout << "Keluhan     : "; cin >> keluhan;
 
-                if (D != nullptr && P != nullptr) {
-                    R = newRelasi(D, P);
-                    insertRelasi(LR, R);
-                } else {
-                    cout << "Dokter atau Pasien tidak ditemukan\n";
-                    system("pause");
-                }
-                break;
+            d = findDokter(LD, idDokter, spesialis);
+            p = findPasien(LP, idPasien, keluhan);
+
+            if(d != nullptr && p != nullptr){
+                r = newRelasi(d, p);
+                insertRelasi(LR, r);
+                cout << "Relasi berhasil ditambahkan\n";
+            } else {
+                cout << "Dokter atau Pasien tidak ditemukan\n";
             }
+            system("pause");
+            break;
 
-            case 2: { // hapus relasi pasien
-                cout << "ID Pasien : "; cin >> idP;
-                cout << "Keluhan   : "; cin >> keluhan;
+        // ===== DELETE RELASI =====
+        case 2:
+            cout << "ID Dokter   : "; cin >> idDokter;
+            cout << "Spesialis   : "; cin >> spesialis;
+            cout << "ID Pasien   : "; cin >> idPasien;
+            cout << "Keluhan     : "; cin >> keluhan;
 
-                P = findPasien(LP, idP, keluhan);
-                if (P != nullptr) {
-                    R = findElmRelasiByChild(LR, P);
-                    if (R != nullptr)
-                        deleteRelasi(LR, R);
+            d = findDokter(LD, idDokter, spesialis);
+            p = findPasien(LP, idPasien, keluhan);
+
+            if(d != nullptr && p != nullptr){
+                r = LR.first;
+                while(r != nullptr){
+                    if(r->nextD == d && r->nextP == p){
+                        deleteRelasi(LR, r);
+                        cout << "Relasi berhasil dihapus\n";
+                        break;
+                    }
+                    r = r->next;
                 }
-                break;
+            } else {
+                cout << "Relasi tidak ditemukan\n";
             }
+            system("pause");
+            break;
 
-            case 3:
-                cout << "ID Dokter : "; cin >> idD;
-                ShowPasien_from_Dokter(LR, idD);
-                system("pause");
-                break;
+        // ===== EDIT CHILD DARI PARENT =====
+        case 3:
+            cout << "ID Dokter        : "; cin >> idDokter;
+            cout << "Spesialis        : "; cin >> spesialis;
+            cout << "ID Pasien Baru   : "; cin >> idPasien;
+            cout << "Keluhan Pasien   : "; cin >> keluhan;
 
-            case 4:
-                cout << "ID Pasien : "; cin >> idP;
-                ShowDokter_from_Pasien(LR, idP);
-                system("pause");
-                break;
+            p = findPasien(LP, idPasien, keluhan);
+            if(p != nullptr){
+                EditChild_fromParent(LR, idDokter, p);
+            } else {
+                cout << "Pasien tidak ditemukan\n";
+            }
+            system("pause");
+            break;
 
-            case 5:
-                ShowRelasiDokter_to_Pasien(LR);
-                system("pause");
-                break;
+        // ===== EDIT PARENT DARI CHILD =====
+        case 4:
+            cout << "ID Pasien        : "; cin >> idPasien;
+            cout << "Keluhan          : "; cin >> keluhan;
+            cout << "ID Dokter Baru   : "; cin >> idDokter;
+            cout << "Spesialis        : "; cin >> spesialis;
 
-            case 6:
-                cout << "ID Dokter : "; cin >> idD;
-                cout << "Jumlah Pasien: "
-                     << jumPasien_to_Dokter(LR, idD) << endl;
-                system("pause");
-                break;
-
-            case 7:
-                cout << "Dokter tanpa pasien: "
-                     << Dokter_doesntHavePasien(LR, LD) << endl;
-                system("pause");
-                break;
-
-            case 8:
-                cout << "Pasien tanpa dokter: "
-                     << Pasien_doesntHaveDokter(LR, LP) << endl;
-                system("pause");
-                break;
+            d = findDokter(LD, idDokter, spesialis);
+            if(d != nullptr){
+                EditParent_fromChild(LR, idPasien, d);
+            } else {
+                cout << "Dokter tidak ditemukan\n";
+            }
+            system("pause");
+            break;
         }
     }
 }
 
 
  
+
 
