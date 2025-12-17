@@ -12,10 +12,10 @@ void menuUser(){
     while (option != 0) {
         system("cls");
         cout << "================ Menu Studi Kasus =====================\n";
-        cout << "|| 1. Show Pasien dari Dokter                        ||\n";
-        cout << "|| 2. Show Dokter dari Pasien                        ||\n";
-        cout << "|| 3. Show Relasi Dokter ke Pasien                   ||\n";
-        cout << "|| 4. Show Relasi Pasien ke Dokter                   ||\n";
+        cout << "|| 1. Tampilkan Pasien dari Dokter tertentu          ||\n";
+        cout << "|| 2. Tampilkan Dokter dari Pasien tertentu          ||\n";
+        cout << "|| 3. Tampilkan Relasi Dokter ke Pasien              ||\n";
+        cout << "|| 4. Tampilkan Relasi Pasien ke Dokter              ||\n";
         cout << "|| 5. Jumlah Pasien dari Dokter tertentu             ||\n";
         cout << "|| 6. Jumlah Dokter yang dimiliki Pasien tertentu    ||\n";
         cout << "|| 7. Jumlah Pasien yang tidak memiliki Dokter       ||\n";
@@ -62,8 +62,8 @@ void menuUser(){
                 break;
 
             case 6:
-                cout << "Jumlah Dokter yang memiliki pasien : "
-                     << jumDokter_HasPasien(LR) << endl;
+                cout << "Jumlah Dokter yang dimiliki pasien tertentu : "
+                     << jumDokter_to_Pasien(LR, id) << endl;
                 system("pause");
                 break;
 
@@ -121,3 +121,4 @@ void menuUser(){
         }
     }
 }
+
