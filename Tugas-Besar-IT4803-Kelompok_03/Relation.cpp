@@ -190,22 +190,43 @@ adr_Relasi findElmRelasiByDokter(list_Relasi L, adr_Dokter Dokter){
 }
 
 
-void editRelasi(list_Relasi &L, string ID_Pasien, string new_ID_Dokter){
+void EditChild_fromParent(list_Relasi &L, string ID_Dokter,
+                          adr_Pasien PasienBaru){
     /*
-    I.S : List relasi L terdefinisi dan terdapat relasi dengan pasien ber-ID ID_Pasien.
-    F.S : Relasi pasien tersebut terhubung dengan dokter baru.
+    I.S : List relasi L terdefinisi, ID_Dokter dan PasienBaru valid
+    F.S : Pasien pada relasi dengan dokter ber-ID ID_Dokter diganti
+    */
+
+    adr_Relasi p = L.first;
+    while (p != nullptr) {
+        if (p->nextD->info.ID_Dokter == ID_Dokter) {
+            p->nextP = PasienBaru;
+            cout << "Relasi berhasil diubah (Child diganti)" << endl;
+            return;
+        }
+        p = p->next;
+    }
+    cout << "Relasi tidak ditemukan" << endl;
+}
+
+void EditParent_fromChild(list_Relasi &L, string ID_Pasien,
+                          adr_Dokter DokterBaru){
+    /*
+    I.S : List relasi L terdefinisi, ID_Pasien dan DokterBaru valid
+    F.S : Dokter pada relasi dengan pasien ber-ID ID_Pasien diganti
     */
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
         if (p->nextP->info.ID_Pasien == ID_Pasien) {
-            p->nextD = dokterBaru;
+            p->nextD = DokterBaru;
+            cout << "Relasi berhasil diubah (Parent diganti)" << endl;
             return;
         }
         p = p->next;
     }
+    cout << "Relasi tidak ditemukan" << endl;
 }
-
 
 int jumPasien_to_Dokter(list_Relasi L, string ID_Dokter){
     /*
@@ -296,5 +317,6 @@ int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList){
     }
     return count;
 }
+
 
 
