@@ -225,32 +225,22 @@ int jumPasien_to_Dokter(list_Relasi L, string ID_Dokter){
     return count;
 }
 
-int jumDokter_HasPasien(list_Relasi L){
+int jumDokter_to_Pasien(list_Relasi L, string ID_Pasien){
     /*
     I.S : List relasi L terdefinisi.
-    F.S : Mengembalikan jumlah dokter yang memiliki minimal satu pasien.
+    F.S : Mengembalikan jumlah dokter yang berelasi dengan pasien ber-ID ID_Pasien.
     */
 
     int count = 0;
     adr_Relasi p = L.first;
 
-    while (p != nullptr) {
-        bool found = false;
-        adr_Relasi q = L.first;
-        while (q != p) {
-            if (q->nextD == p->nextD) {
-                found = true;
-                break;
-            }
-            q = q->next;
-        }
-        if (!found){
+    while (p != NULL) {
+        if (p->nextP->info.ID_Pasien == ID_Pasien) {
             count++;
         }
         p = p->next;
     }
     return count;
-
 }
 
 int Pasien_doesntHaveDokter(list_Relasi L, list_Pasien pasienList){
@@ -306,4 +296,5 @@ int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList){
     }
     return count;
 }
+
 
