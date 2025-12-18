@@ -101,7 +101,7 @@ void initDummyData()
 
 int main()
 {
-    initDummyData();   // <<<< INI KUNCINYA
+    initDummyData();
 
     int option = -99;
     while (option != 0) {
