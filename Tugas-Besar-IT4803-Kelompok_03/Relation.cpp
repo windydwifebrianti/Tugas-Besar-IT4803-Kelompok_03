@@ -60,16 +60,16 @@ void deleteLastRelasi(list_Relasi &L, adr_Relasi &p){
     F.S : Elemen relasi terakhir dilepas dari list dan address-nya disimpan ke p.
     */
 
-    if (L.first->next == NULL) {
+    if (L.first->next == nullptr) {
         p = L.first;
-        L.first = NULL;
+        L.first = nullptr;
     } else {
         adr_Relasi q = L.first;
-        while (q->next->next != NULL) {
+        while (q->next->next != nullptr) {
             q = q->next;
         }
         p = q->next;
-        q->next = NULL;
+        q->next = nullptr;
     }
 }
 
@@ -83,7 +83,7 @@ void deleteRelasi(list_Relasi &L, adr_Relasi p){
 
     if (p == L.first) {
         deleteFirstRelasi(L, q);
-    } else if (p->next == NULL) {
+    } else if (p->next == nullptr) {
         deleteLastRelasi(L, q);
     } else {
         adr_Relasi prec = L.first;
@@ -103,9 +103,9 @@ void ShowPasien_from_Dokter(list_Relasi L, string ID_Dokter){
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        if (p->nextD->info.ID_Dokter == ID_Dokter) {
+        if (p->nextD->infoD.ID_Dokter == ID_Dokter) {
             cout << "ID Pasien : "
-                 << p->nextP->info.ID_Pasien << endl;
+                 << p->nextP->infoP.ID_Pasien << endl;
         }
         p = p->next;
     }
@@ -119,9 +119,9 @@ void ShowDokter_from_Pasien(list_Relasi L, string ID_Pasien){
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        if (p->nextP->info.ID_Pasien == ID_Pasien) {
+        if (p->nextP->infoP.ID_Pasien == ID_Pasien) {
             cout << "ID Dokter : "
-                 << p->nextD->info.ID_Dokter << endl;
+                 << p->nextD->infoD.ID_Dokter << endl;
         }
         p = p->next;
     }
@@ -135,9 +135,9 @@ void ShowRelasiDokter_to_Pasien(list_Relasi L){
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        cout << p->nextD->info.ID_Dokter
+        cout << p->nextD->infoD.ID_Dokter
              << " -> "
-             << p->nextP->info.ID_Pasien << endl;
+             << p->nextP->infoP.ID_Pasien << endl;
         p = p->next;
     }
 }
@@ -150,9 +150,9 @@ void ShowRelasiPasien_to_Dokter(list_Relasi L){
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        cout << p->nextP->info.ID_Pasien
+        cout << p->nextP->infoP.ID_Pasien
              << " -> "
-             << p->nextD->info.ID_Dokter << endl;
+             << p->nextD->infoD.ID_Dokter << endl;
         p = p->next;
     }
 }
@@ -199,7 +199,7 @@ void EditChild_fromParent(list_Relasi &L, string ID_Dokter,
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        if (p->nextD->info.ID_Dokter == ID_Dokter) {
+        if (p->nextD->infoD.ID_Dokter == ID_Dokter) {
             p->nextP = PasienBaru;
             cout << "Relasi berhasil diubah (Child diganti)" << endl;
             return;
@@ -209,8 +209,7 @@ void EditChild_fromParent(list_Relasi &L, string ID_Dokter,
     cout << "Relasi tidak ditemukan" << endl;
 }
 
-void EditParent_fromChild(list_Relasi &L, string ID_Pasien,
-                          adr_Dokter DokterBaru){
+void EditParent_fromChild(list_Relasi &L, string ID_Pasien, adr_Dokter DokterBaru){
     /*
     I.S : List relasi L terdefinisi, ID_Pasien dan DokterBaru valid
     F.S : Dokter pada relasi dengan pasien ber-ID ID_Pasien diganti
@@ -218,7 +217,7 @@ void EditParent_fromChild(list_Relasi &L, string ID_Pasien,
 
     adr_Relasi p = L.first;
     while (p != nullptr) {
-        if (p->nextP->info.ID_Pasien == ID_Pasien) {
+        if (p->nextP->infoP.ID_Pasien == ID_Pasien) {
             p->nextD = DokterBaru;
             cout << "Relasi berhasil diubah (Parent diganti)" << endl;
             return;
@@ -237,8 +236,8 @@ int jumPasien_to_Dokter(list_Relasi L, string ID_Dokter){
     int count = 0;
     adr_Relasi p = L.first;
 
-    while (p != NULL) {
-        if (p->nextD->info.ID_Dokter == ID_Dokter) {
+    while (p != nullptr) {
+        if (p->nextD->infoD.ID_Dokter == ID_Dokter) {
             count++;
         }
         p = p->next;
@@ -255,8 +254,8 @@ int jumDokter_to_Pasien(list_Relasi L, string ID_Pasien){
     int count = 0;
     adr_Relasi p = L.first;
 
-    while (p != NULL) {
-        if (p->nextP->info.ID_Pasien == ID_Pasien) {
+    while (p != nullptr) {
+        if (p->nextP->infoP.ID_Pasien == ID_Pasien) {
             count++;
         }
         p = p->next;
@@ -271,7 +270,7 @@ int Pasien_doesntHaveDokter(list_Relasi L, list_Pasien pasienList){
     */
 
     int count = 0;
-    adr_Pasien p = pasienList.first;
+    adr_Pasien p = pasienList.firstP;
 
     while (p != nullptr) {
         bool found = false;
@@ -286,7 +285,7 @@ int Pasien_doesntHaveDokter(list_Relasi L, list_Pasien pasienList){
         if (!found){
             count++;
         }
-        p = p->next;
+        p = p->nextP;
     }
     return count;
 }
@@ -298,12 +297,12 @@ int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList){
     */
 
     int count = 0;
-    adr_Dokter d = dokterList.first;
+    adr_Dokter d = dokterList.firstD;
 
-    while (d != NULL) {
+    while (d != nullptr) {
         bool found = false;
         adr_Relasi r = L.first;
-        while (r != NULL) {
+        while (r != nullptr) {
             if (r->nextD == d) {
                 found = true;
                 break;
@@ -313,10 +312,7 @@ int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList){
         if (!found){
             count++;
         }
-        d = d->next;
+        d = d->nextD;
     }
     return count;
 }
-
-
-
