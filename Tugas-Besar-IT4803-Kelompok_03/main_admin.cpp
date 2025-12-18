@@ -1,4 +1,8 @@
+#include <iostream>
 #include "main.h"
+#include "Relation.h"
+#include "Dokter.h"
+#include "Pasien.h"
 using namespace std;
 
 list_Dokter LD;
@@ -304,8 +308,3 @@ void menuRelasi(){
         }
     }
 }
-
-
- 
-
-
