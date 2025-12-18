@@ -1,6 +1,14 @@
-#include "main.h"
 #include <iostream>
+#include "main.h"
+#include "Relation.h"
+#include "Dokter.h"
+#include "Pasien.h"
 using namespace std;
+
+extern list_Dokter LD;
+extern list_Pasien LP;
+extern list_Relasi LR;
+
 
 void menuUser(){
     int option = -99;
@@ -17,7 +25,7 @@ void menuUser(){
         cout << "|| 3. Tampilkan Relasi Dokter ke Pasien              ||\n";
         cout << "|| 4. Tampilkan Relasi Pasien ke Dokter              ||\n";
         cout << "|| 5. Jumlah Pasien dari Dokter tertentu             ||\n";
-        cout << "|| 6. Jumlah Dokter yang dimiliki Pasien tertentu    ||\n";
+        cout << "|| 6. Jumlah Dokter dari Pasien tertentu             ||\n";
         cout << "|| 7. Jumlah Pasien yang tidak memiliki Dokter       ||\n";
         cout << "|| 8. Jumlah Dokter yang tidak memiliki Pasien       ||\n";
         cout << "|| 9. Cek Relasi Pasien                              ||\n";
@@ -61,11 +69,17 @@ void menuUser(){
                 system("pause");
                 break;
 
-            case 6:
-                cout << "Jumlah Dokter yang dimiliki pasien tertentu : "
-                     << jumDokter_to_Pasien(LR, id) << endl;
-                system("pause");
-                break;
+            case 6: {
+            string idPasien;
+            cout << "ID Pasien : ";
+            cin >> idPasien;
+
+            cout << "Jumlah Dokter : "
+                 << jumDokter_to_Pasien(LR, idPasien) << endl;
+
+            system("pause");
+            break;
+}
 
             case 7:
                 cout << "Jumlah Pasien tanpa Dokter : "
@@ -90,7 +104,7 @@ void menuUser(){
                     R = findElmRelasiByPasien(LR, P);
                     if (R != nullptr)
                         cout << "Pasien memiliki relasi dengan dokter "
-                             << R->nextD->info.ID_Dokter << endl;
+                             << R->nextD->infoD.ID_Dokter << endl;
                     else
                         cout << "Pasien belum memiliki relasi dokter\n";
                 } else {
@@ -110,7 +124,7 @@ void menuUser(){
                     R = findElmRelasiByDokter(LR, D);
                     if (R != nullptr)
                         cout << "Dokter memiliki relasi dengan pasien "
-                             << R->nextP->info.ID_Pasien << endl;
+                             << R->nextP->infoP.ID_Pasien << endl;
                     else
                         cout << "Dokter belum memiliki pasien\n";
                 } else {
@@ -121,4 +135,3 @@ void menuUser(){
         }
     }
 }
-
