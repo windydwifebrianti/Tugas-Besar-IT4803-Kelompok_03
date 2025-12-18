@@ -33,13 +33,14 @@ void ShowDokter_from_Pasien(list_Relasi L, string ID_Pasien);
 void ShowRelasiDokter_to_Pasien(list_Relasi L);
 void ShowRelasiPasien_to_Dokter(list_Relasi L);
 
-adr_Relasi findElmRelasiByChild(list_Relasi L, adr_Pasien Pasien);
-adr_Relasi findElmRelasiByChild(list_Relasi L, adr_Dokter Dokter);
+adr_Relasi findElmRelasiByPasien(list_Relasi L, adr_Pasien Pasien);
+adr_Relasi findElmRelasiByDokter(list_Relasi L, adr_Dokter Dokter);
 
-void editRelasiDokter(list_Relasi &L, string ID_Pasien, adr_Dokter dokterBaru);
+void EditChild_fromParent(list_Relasi &L, string ID_Dokter,adr_Pasien PasienBaru);
+void EditParent_fromChild(list_Relasi &L, string ID_Pasien,adr_Dokter DokterBaru);
 
 int jumPasien_to_Dokter(list_Relasi L, string ID_Dokter);
-int jumDokter_HasPasien(list_Relasi L);
+int jumDokter_to_Pasien(list_Relasi L, string ID_Pasien);
 int Pasien_doesntHaveDokter(list_Relasi L, list_Pasien pasienList);
 int Dokter_doesntHavePasien(list_Relasi L, list_Dokter dokterList);
 
