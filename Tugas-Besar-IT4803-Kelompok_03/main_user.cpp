@@ -70,16 +70,16 @@ void menuUser(){
                 break;
 
             case 6: {
-            string idPasien;
-            cout << "ID Pasien : ";
-            cin >> idPasien;
-
-            cout << "Jumlah Dokter : "
-                 << jumDokter_to_Pasien(LR, idPasien) << endl;
-
-            system("pause");
-            break;
-}
+                string idPasien;
+                cout << "ID Pasien : ";
+                cin >> idPasien;
+    
+                cout << "Jumlah Dokter : "
+                     << jumDokter_to_Pasien(LR, idPasien) << endl;
+    
+                system("pause");
+                break;
+    }
 
             case 7:
                 cout << "Jumlah Pasien tanpa Dokter : "
@@ -135,3 +135,4 @@ void menuUser(){
         }
     }
 }
+
